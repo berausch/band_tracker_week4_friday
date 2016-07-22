@@ -60,6 +60,25 @@ namespace bandTracker
       Venue foundVenue = Venue.Find(testVenue.GetId());
       Assert.Equal(testVenue, foundVenue);
     }
+    [Fact]
+    public void Test_GetBands_GetsAllBandsThatPlayedAtThisVenue()
+    {
+      Venue testVenue = new Venue("Roxy");
+      testVenue.Save();
+
+      Band test1Band = new Band("Queen");
+      test1Band.Save();
+
+      Band test2Band = new Band("The Police");
+      test2Band.Save();
+      testVenue.AddBand(test1Band.GetId());
+
+      List<Band> testVenueBands = testVenue.GetBands();
+
+      List<Band> result = new List<Band>{testBand1};
+
+      Assert.Equal(result, testVenueBands);
+    }
     public void Dispose()
     {
       Venue.DeleteAll();
