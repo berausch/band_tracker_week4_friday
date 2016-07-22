@@ -96,13 +96,20 @@ namespace bandTracker
         conn.Close();
       }
     }
-    public void Find(int id)
+    public static void DeleteAll()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+      SqlCommand cmd = new SqlCommand("DELETE FROM venues;", conn);
+      cmd.ExecuteNonQuery();
+    }
+    public static Venue Find(int id)
     {
       SqlConnection conn = DB.Connection();
       SqlDataReader rdr = null;
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("SELECT * FROM venue WHERE id = @VenueId;", conn);
+      SqlCommand cmd = new SqlCommand("SELECT * FROM venues WHERE id = @VenueId;", conn);
 
       SqlParameter venueIdParameter = new SqlParameter();
       venueIdParameter.ParameterName="@VenueId";
@@ -125,17 +132,9 @@ namespace bandTracker
       }
       if(conn != null)
       {
-        conn.Close()
+        conn.Close();
       }
-      return foundVenue;]
+      return foundVenue;
     }
-    public static void DeleteAll()
-    {
-      SqlConnection conn = DB.Connection();
-      conn.Open();
-      SqlCommand cmd = new SqlCommand("DELETE FROM venues;", conn);
-      cmd.ExecuteNonQuery();
-    }
-
   }
 }
