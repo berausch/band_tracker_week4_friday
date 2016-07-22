@@ -33,14 +33,14 @@ namespace bandTracker
       Band testBand = new Band("Queen");
       testBand.Save();
       List<Band> result = Band.GetAll();
-      List<Band> testBand = new List<Band>{"Queen"};
-      Assert.Equal(testBand, result);
+      List<Band> savedBand = new List<Band>{testBand};
+      Assert.Equal(savedBand, result);
     }
     [Fact]
     public void Test_Save_AssignsIdtoBandObject()
     {
       Band testBand = new Band("Queen");
-      newBand.Save();
+      testBand.Save();
       Band savedBand = Band.GetAll()[0];
       int result = testBand.GetId();
       int testId = savedBand.GetId();

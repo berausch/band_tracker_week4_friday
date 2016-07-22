@@ -77,7 +77,7 @@ namespace bandTracker
 
       SqlCommand cmd = new SqlCommand("INSERT INTO bands (name) OUTPUT INSERTED.id VALUES (@BandName);", conn);
 
-      SqlParameter nameParameter = SqlParameter();
+      SqlParameter nameParameter = new SqlParameter();
       nameParameter.ParameterName = "@BandName";
       nameParameter.Value = this.GetName();
       cmd.Parameters.Add(nameParameter);
@@ -100,7 +100,7 @@ namespace bandTracker
     {
       SqlConnection conn = DB.Connection();
       conn.Open();
-      SqlCommand cmd = SqlCommand("DELETE FROM bands", conn);
+      SqlCommand cmd = new SqlCommand("DELETE FROM bands", conn);
       cmd.ExecuteNonQuery();
     }
   }
