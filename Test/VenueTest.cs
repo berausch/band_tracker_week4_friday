@@ -20,5 +20,18 @@ namespace bandTracker
 
       Assert.Equal(0, result);
     }
+    [Fact]
+    public void Test_Equal_ReturnsTrueForSameName()
+    {
+      Venue firstVenue = new Venue("Roxy");
+      Venue secondVenue = new Venue("Roxy");
+
+      Assert.Equal(firstVenue, secondVenue);
+    }
+    public void Dispose()
+    {
+      // Venue.DeleteAll();
+      // Band.DeleteAll();
+    }
   }
 }

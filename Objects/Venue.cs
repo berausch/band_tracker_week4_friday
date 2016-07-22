@@ -49,14 +49,14 @@ namespace bandTracker
       SqlDataReader rdr = null;
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("SELECT * FROM venues", conn)
-      rdr = ExecuteReader();
+      SqlCommand cmd = new SqlCommand("SELECT * FROM venues", conn);
+      rdr = cmd.ExecuteReader();
 
-      While(rdr.Read())
+      while(rdr.Read())
       {
         int venueId = rdr.GetInt32(0);
         string venueName = rdr.GetString(1);
-        Venue newVenue = Venue(venueName, venueId);
+        Venue newVenue = new Venue(venueName, venueId);
         allVenues.Add(newVenue);
       }
       if(rdr != null)
