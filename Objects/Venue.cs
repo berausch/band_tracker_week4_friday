@@ -159,41 +159,39 @@ namespace bandTracker
       {
         conn.Close();
       }
-      public List<Venue> GetBands()
+    }
+    public List<Band> GetBands()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("Select bands.* FROM venues JOIN venue_band ON (venues.id = venue_band.venue_id) JOIN bands ON (venue_band.band_id = bands.id) WHERE venues.id = @VenueId;", conn);
+
+      SqlParameter bandIdParameter = new SqlParameter();
+      bandIdParameter.ParameterName = "@VenueId";
+      bandIdParameter.Value = this.GetId().ToString();
+      cmd.Parameters.Add(bandIdParameter);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+      List<Band> allBands = new List<Band>{};
+
+      while(rdr.Read())
       {
-        SqlConnection conn = DB.Connection();
-        SqlDataReader rdr = null;
-        conn.Open();
-
-        SqlCommand cmd = new SqlCommand("Select bands.* JOIN venue_band ON (band.id = venue_band.band_id) JOIN venues ON (venue_band.venue_id = venue.id) WHERE band.id = @BandId;", conn);
-
-        SqlParameter bandIdParameter = new SqlParameter();
-        bandIdParameter.ParameterName = "@BandId";
-        bandIdParameter.Value = this.GetId().ToString();
-        cmd.Parameters.Add(bandIdParameter);
-
-        rdr. cms.ExecuteReader();
-        List<Band> allBands = new List<Band>{};
-
-        while(rdr.Read())
-        {
-          int bandId = rdr.GetInt32(0);
-          string bandName = rdr.GetString(1);
-          Band newBand = new Band(bandName, bandId);
-          allBands.Add(newBand);
-        }
-
-        if(rdr != null)
-        {
-          rdr.Close();
-        }
-        if(conn != null)
-        {
-          conn.Close();
-        }
-        return allBands;
-
+        int bandId = rdr.GetInt32(0);
+        string bandName = rdr.GetString(1);
+        Band newBand = new Band(bandName, bandId);
+        allBands.Add(newBand);
       }
+
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
+      }
+      return allBands;
     }
   }
 }

@@ -73,16 +73,16 @@ namespace bandTracker
       test2Band.Save();
       testVenue.AddBand(test1Band.GetId());
 
-      List<Band> testVenueBands = testVenue.GetBands();
+      List<Band> result = testVenue.GetBands();
 
-      List<Band> result = new List<Band>{testBand1};
+      List<Band> expectedResult = new List<Band> {test1Band};
 
-      Assert.Equal(result, testVenueBands);
+      Assert.Equal(expectedResult, result);
     }
     public void Dispose()
     {
       Venue.DeleteAll();
-      // Band.DeleteAll();
+      Band.DeleteAll();
     }
   }
 }
