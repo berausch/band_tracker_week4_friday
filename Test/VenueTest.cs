@@ -71,7 +71,7 @@ namespace bandTracker
 
       Band test2Band = new Band("The Police");
       test2Band.Save();
-      testVenue.AddBand(test1Band.GetId());
+      testVenue.AddBand(test1Band);
 
       List<Band> result = testVenue.GetBands();
 
@@ -115,6 +115,42 @@ namespace bandTracker
 
       //Assert
       Assert.Equal(testVenueList, resultVenues);
+    }
+    [Fact]
+    public void Test_AddBand_AddsBandToVenue()
+    {
+      Venue testVenue = new Venue("The Greek");
+      testVenue.Save();
+      Band testBand = new Band("Queen");
+      testBand.Save();
+      Band testBand2 = new Band("The Police");
+      testBand2.Save();
+      testVenue.AddBand(testBand);
+      testVenue.AddBand(testBand2);
+      List<Band> result = testVenue.GetBands();
+      List<Band> testList = new List<Band>{testBand, testBand2};
+      Assert.Equal(testList, result);
+    }
+    [Fact]
+    public void Test_GetBands_ReturnsAllVenueBands()
+    {
+      //Arrange
+      Venue testVenue = new Venue("The Greek");
+      testVenue.Save();
+
+      Band testBand1 = new Band("Queen");
+      testBand1.Save();
+
+      Band testBand2 = new Band("The Police");
+      testBand2.Save();
+
+      //Act
+      testVenue.AddBand(testBand1);
+      List<Band> savedBands = testVenue.GetBands();
+      List<Band> testList = new List<Band> {testBand1};
+
+      //Assert
+      Assert.Equal(testList, savedBands);
     }
     public void Dispose()
     {

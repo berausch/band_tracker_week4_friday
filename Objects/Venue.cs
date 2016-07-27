@@ -171,7 +171,7 @@ namespace bandTracker
         conn.Close();
       }
     }
-    public void AddBand(int bandId)
+    public void AddBand(Band newband)
     {
       SqlConnection conn = DB.Connection();
       conn.Open();
@@ -180,12 +180,12 @@ namespace bandTracker
 
       SqlParameter venueIdParameter = new SqlParameter();
       venueIdParameter.ParameterName = "@VenueId";
-      venueIdParameter.Value = this._id;
+      venueIdParameter.Value = this.GetId();
       cmd.Parameters.Add(venueIdParameter);
 
       SqlParameter bandIdParameter = new SqlParameter();
       bandIdParameter.ParameterName = "@BandId";
-      bandIdParameter.Value = bandId;
+      bandIdParameter.Value = newband.GetId();
       cmd.Parameters.Add(bandIdParameter);
 
       cmd.ExecuteNonQuery();
