@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Salon</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+  </head>
+  <body>
+    <h1>Curl up and Dye Salon</h1>
+    <hr />
+    <h2>Venues:</h2>
+    @if (@Model.Count == 0)
+    {
+      <p>There are no Venues.</p>
+    }
+    <ul>
+
+      @if (@Model["venues"].Count != 0)
+      {
+        @foreach (var venue in Model["venues"])
+        {
+          <form action="/venue/@venue.GetId()/delete" method="post">
+            <li><a href="/venues/@venue.GetId()">@venue.GetName()</a> |
+              <a href="/venue/edit/@venue.GetId()"><button type="button">Edit</button></a>
+              <input type="hidden" name="_method" value="DELETE">
+              <button type="submit">Delete</button></h4>
+            </li>
+          </form>
+        }
+      }
+    </ul>
+    <form action="/venues/new" method="post">
+      <label for="venue-name">Add a new Venue name</label>
+      <input id="venue-name" name="venue-name" type="text">
+      <button type="submit">Add</button>
+    </form>
+    <h2>Bands:</h2>
+    @if (@Model["bands"].Count == 0)
+    {
+      <p>There are no Bands.</p>
+    }
+    <ul>
+
+      @if (@Model.Count != 0)
+      {
+        @foreach (var band in Model["bands"])
+        {
+            <li><a href="/bands/@band.GetId()">@band.GetName()</a> |
+            </li>
+          </form>
+        }
+      }
+    </ul>
+    <form action="/bands/new" method="post">
+      <label for="band-name">Add a new Band name</label>
+      <input id="band-name" name="band-name" type="text">
+      <button type="submit">Add</button>
+    </form>
+  </body>
+</html>

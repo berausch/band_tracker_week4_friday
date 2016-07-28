@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Band</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+  </head>
+  <body>
+    <h2>Here are all the venues this band has played:</h2>
+
+    @if (Model["venues"].Count == 0)
+    {
+    <p>No venues have been added to this bands venue list yet!</p>
+    }
+    else
+    {
+    <ul>
+      @foreach (var venue in @Model["venues"])
+      {
+
+          <li><h4><a href="/venues/@venue.GetId()">@venue.GetName()</a></h4></li>
+
+      }
+    </ul>
+    }
+    <h1>Add a new venue for this Band</h1>
+    @if (Model["venuesall"].Count == 0)
+    {
+    <p>No bands have been added yet!</p>
+    }
+    else
+    {
+    <form class="form-group" action="/band/newvenue" method="post">
+      <select name="venue-id">
+      @foreach (var venue in @Model["venuesall"])
+      {
+        <option value='@venue.GetId()' selected>@venue.GetName()</option>
+      }
+      </select>
+
+      <input id="band" name="band" type="hidden" value='@Model["bands"].GetId()'>
+      <button type="submit">Add</button>
+    </form>
+    }
+    <p><a href="/">Return to Main Page</a></p>
+  </body>
+</html>
