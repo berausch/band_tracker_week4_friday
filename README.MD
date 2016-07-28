@@ -30,8 +30,7 @@ _This application allows the user to manage a bands and venues database that mat
 * _navigate in powershell to the Cloned folder_
 * _run the command "dnu restore"_
 * _run the command "dnx kestrel"_
-* _open your preferred internet browser to localhost:5004_
-* _Start Counting words!_
+* _open your preferred internet browser to localhost:5004__
 
 ## Technologies Used
 
